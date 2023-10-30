@@ -629,10 +629,10 @@ server <- function(input, output) {
       v <- get.v.to(edge)
     }
     if (v.first()) {
-      .prompt <- sprintf("🤔 Is there a set of observed mediators that can block %s <-- %s?", 
+      .prompt <- sprintf("🤔 Is there a set of observed variables that fully mediate %s <-- %s?", 
                          get.v.label(v), common.ancestor)
     } else {
-      .prompt <- sprintf("🤔 Is there a set of observed mediators that can block %s --> %s?", 
+      .prompt <- sprintf("🤔 Is there a set of observed variables that fully mediate %s --> %s?", 
                          common.ancestor, get.v.label(v))
     }
     
