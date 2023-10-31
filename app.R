@@ -448,7 +448,7 @@ server <- function(input, output) {
   enterPrimaryAdjModal <- function(edge, selected=NULL, removed=NULL) {
     .u <- get.v.from(edge)
     .v <- get.v.to(edge)
-    .S <- setdiff(get.S(), c(.u, .v))
+    .S <- setdiff(c(1, get.S()), c(.u, .v))
     .prompt <- sprintf("Enter a set of observed variables that control for %s <-> %s:", 
                          get.v.label(.u), get.v.label(.v))
     modalDialog(
@@ -482,7 +482,7 @@ server <- function(input, output) {
     .u <- get.v.from(input$edge.sel)
     .v <- get.v.to(input$edge.sel)
     removed <- intersect(input$primary.input, 
-                         get.v.label(c(1,2,.u,.v)))
+                         get.v.label(c(2,.u,.v)))
     print(removed)
     if (length(removed) > 0) {
       showModal(enterPrimaryAdjModal(input$edge.sel, 
@@ -504,7 +504,7 @@ server <- function(input, output) {
   get.relative.set <- function(edge) {
     .u <- get.v.from(edge)
     .v <- get.v.to(edge)
-    .rel <- union(primary.adj.set(), get.v.label(setdiff(get.S(), c(.u, .v))))
+    .rel <- union(primary.adj.set(), get.v.label(setdiff(c(1, get.S()), c(.u, .v))))
     if (length(.rel) == 0) {
       return(NULL)
     } else {
@@ -677,7 +677,7 @@ server <- function(input, output) {
     # check input
     v.forbidden <- c(get.v.from(input$edge.sel, label=TRUE),
                      get.v.to(input$edge.sel, label=TRUE),
-                     get.v.label(c(1,2)), input$common.ancestor.input)
+                     get.v.label(c(2)), input$common.ancestor.input)
     removed <- intersect(input$mediators.input, v.forbidden)
     if (!is.null(removed) & length(removed)>0) {
       showModal(enterMediatorsModal(input$common.ancestor.input, 
